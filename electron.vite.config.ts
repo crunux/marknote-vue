@@ -35,7 +35,7 @@ export default defineConfig({
 			vue(),
 			UnoCSS(),
 			AutoImport({
-				imports: ['vue', 'vue-router', '@vueuse/core', '@vueuse/head', 'vue/macros'],
+				imports: ['vue', 'vue-router', '@vueuse/core', '@vueuse/head', 'vue/macros', 'pinia'],
 				dirs: [
 					'./src/renderer/src/composables/**',
 					'./src/renderer/src/store/**',
