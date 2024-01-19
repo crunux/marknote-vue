@@ -8,8 +8,9 @@ import AppLayout from './layouts/AppLayout.vue'
 			<ActionButtonsrow mt10 h-auto w-auto flex justify-between mt1 />
 			<NotePreviewList />
 		</SideBar>
-		<MainContent p2 border-l bg-zinc-900:50 border-l-white:20>
-			
+		<MainContent p2 border-l rounded-lg border-l-white:20>
+			<FloatingNoteTitle pt2/>
+			<MarkdownEditor />
 		</MainContent>
 	</AppLayout>
 </template>
