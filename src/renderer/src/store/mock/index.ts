@@ -1,6 +1,6 @@
 import { NoteInfo } from '@shared/types'
 
-export const notesMock: NoteInfo[] = [
+const notes = ref<NoteInfo[]>([
 	{
 		title: `Welcome`,
 		lastEditTime: new Date().getTime()
@@ -16,9 +16,9 @@ export const notesMock: NoteInfo[] = [
 	{
 		title: 'Note 3',
 		lastEditTime: new Date().getTime()
-	},
-	{
-		title: 'Note 4',
-		lastEditTime: new Date().getTime()
 	}
-]
+])
+
+const notesMock = computed(() => notes.value)
+
+export { notesMock }
