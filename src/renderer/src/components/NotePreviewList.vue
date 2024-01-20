@@ -20,7 +20,7 @@ const toogleNoteSelect = async (idx: number) => {
 		:key="idx"
 	>
 		<NotePreview
-			@click="toogleNoteSelect(idx)"
+			@click.prevent="toogleNoteSelect(idx)"
 			:class="selectedNote === idx ? 'bg-zinc-400:90' : ''"
 			:title="note.title"
 			:lastEditTime="note.lastEditTime"

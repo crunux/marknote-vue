@@ -11,7 +11,8 @@ const useNotesList = ({ onSelect }: OnSelect) => {
 	const notes = store.notesAtom
 
 	const handlerNoteSelect = async (index: number) => {
-		store.selectedNote = index
+		//store.selectedNoteIndex = index
+		await store.selectNote(index)
 		if (onSelect) {
 			onSelect()
 		}
@@ -19,7 +20,7 @@ const useNotesList = ({ onSelect }: OnSelect) => {
 
 	return {
 		notes: computed(() => notes),
-		selectedNote: computed(() => store.selectedNote),
+		selectedNote: computed(() => store.selectedNoteIndex),
 		handlerNoteSelect
 	}
 }
