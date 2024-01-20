@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { MdEditor } from 'md-editor-v3'
 import type { ExposeParam } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
+import useMarkdownEditor from '../composables/useMarkdownEditor'
 
-const markdown = ref('# Welcome')
+//const markdown = ref('# Welcome')
 const html = ref('')
 const el = ref<ExposeParam>()
 const toggleCall = () => console.log('Hola ya esta guardado')
+
+const {content} = useMarkdownEditor()
+
 const htmlParse = (value) => {
 	html.value = value
 }
@@ -18,7 +22,7 @@ const htmlPreview = computed(() => html.value)
 	<div v-html="htmlPreview" text-white p4 m2></div>
 	<MdEditor
 		ref="el"
-		v-model="markdown"
+		v-model="content"
 		:language="'en-US'"
 		theme="dark"
 		@on-html-changed="htmlParse"
