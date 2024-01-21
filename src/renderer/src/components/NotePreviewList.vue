@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import useNotesList from '../composables/useNotesList'
 
+const emit = defineEmits<{
+	(e: 'change')
+}>()
+
 const { notes, selectedNote, handlerNoteSelect } = useNotesList({})
 const toogleNoteSelect = async (idx: number) => {
 	await handlerNoteSelect(idx)
+	emit('change')
 }
 </script>
 <template>
