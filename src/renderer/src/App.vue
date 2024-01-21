@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import AppLayout from './layouts/AppLayout.vue'
 
-const contentContainerRef = ref<HTMLElement | null>(null)
+const contentContainerRef = ref<HTMLDivElement | null>(null)
 
 const resetScroll = () => {
 	contentContainerRef.value?.$el.scrollTo(0, 0)

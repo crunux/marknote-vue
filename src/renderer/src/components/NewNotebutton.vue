@@ -1,4 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useStoreNotes } from '../store'
+
+const store = useStoreNotes()
+
+const handlerAddNote = () => {
+	store.addEmptyNote()
+}
+</script>
 <template>
-	<ActionButton name="New Note"><div class="i-carbon-new-tab w-4 h-4 text-zinc-200" /></ActionButton>
+	<ActionButton @click="handlerAddNote" name="New Note"
+		><div class="i-carbon-new-tab w-4 h-4 text-zinc-200"
+	/></ActionButton>
 </template>
+../store/index.pinia ../store
