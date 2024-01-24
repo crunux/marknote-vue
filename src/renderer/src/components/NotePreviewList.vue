@@ -5,7 +5,7 @@ const emit = defineEmits<{
 	(e: 'change')
 }>()
 
-const { notes, selectedNote, handlerNoteSelect } = useNotesList({})
+const { notes, selectedNote, handlerNoteSelect } = useNotesList()
 const toogleNoteSelect = async (idx: number) => {
 	await handlerNoteSelect(idx)
 	emit('change')

@@ -1,26 +1,17 @@
-import { useStoreNotes } from '../store/index'
-import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useStoreNotes } from '../store'
 
-interface OnSelect {
-	onSelect?: () => void
-}
-
-const useNotesList = ({ onSelect }: OnSelect) => {
+const useNotesList = () => {
 	const store = useStoreNotes()
 
-	const notes = store.notesAtom
-
+	const { noteComputed, selectedNoteIndex } = storeToRefs(store)
 	const handlerNoteSelect = async (index: number) => {
-		//store.selectedNoteIndex = index
 		await store.selectNote(index)
-		if (onSelect) {
-			onSelect()
-		}
 	}
 
 	return {
-		notes: computed(() => notes),
-		selectedNote: computed(() => store.selectedNoteIndex),
+		notes: noteComputed,
+		selectedNote: selectedNoteIndex,
 		handlerNoteSelect
 	}
 }

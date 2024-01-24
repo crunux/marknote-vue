@@ -3,7 +3,6 @@ import { storeToRefs } from 'pinia'
 
 const useMarkdownEditor = () => {
 	const store = useStoreNotes()
-
 	const { content, selectedNoteIndex, note } = storeToRefs(store)
 
 	return {

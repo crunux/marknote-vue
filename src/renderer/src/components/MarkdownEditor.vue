@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed} from 'vue'
 import { MdEditor } from 'md-editor-v3'
 import type { ExposeParam } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'

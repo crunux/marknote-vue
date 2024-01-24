@@ -3,34 +3,27 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 //import { notesMock } from './mock'
 
+const loadNotes = async () => {
+	const notes = await window.context.getNotes()
+	return notes.sort((a, b) => b.lastEditTime - a.lastEditTime)
+}
+
 export const useStoreNotes = defineStore('notesStore', () => {
-	const notesAtom = ref<NoteInfo[]>([
-		{
-			title: `Welcome`,
-			lastEditTime: new Date().getTime()
-		},
-		{
-			title: 'Note 1',
-			lastEditTime: new Date().getTime()
-		},
-		{
-			title: 'Note 2',
-			lastEditTime: new Date().getTime()
-		},
-		{
-			title: 'Note 3',
-			lastEditTime: new Date().getTime()
-		}
-	])
+	const notesAtom = ref<NoteInfo[]>([])
 
 	const selectedNoteIndex = ref<number | null>(null)
 	const note = ref<NoteInfo | null>(null)
 	const content = ref<string>(`# Welcome`)
 
-	const selectNote = (index: number) => {
+	const loadData = async () => {
+		notesAtom.value = await loadNotes()
+	}
+
+	const selectNote = async (index: number) => {
 		selectedNoteIndex.value = index
+		if (selectedNoteIndex.value === null || !notesAtom) return
 		note.value = notesAtom.value[selectedNoteIndex.value]
-		content.value = `# Welcome from Note${selectedNoteIndex.value}`
+		content.value = await window.context.readNote(note.value.title)
 	}
 
 	const addEmptyNote = () => {
@@ -62,6 +55,7 @@ export const useStoreNotes = defineStore('notesStore', () => {
 		noteComputed: computed(() => notesAtom.value),
 
 		//setter
+		loadData,
 		selectNote,
 		addEmptyNote,
 		deleteNote

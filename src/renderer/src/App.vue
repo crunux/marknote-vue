@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import AppLayout from './layouts/AppLayout.vue'
+import { ref, onMounted } from 'vue'
+import { useStoreNotes } from '../src/store'
+import { HTMLDivElementCustom } from '@shared/types'
 
-const contentContainerRef = ref<HTMLDivElement | null>(null)
+const contentContainerRef = ref<HTMLDivElementCustom | null>(null)
+const { loadData } = useStoreNotes()
+
+onMounted(async () => {
+	await loadData()
+})
 
 const resetScroll = () => {
 	contentContainerRef.value?.$el.scrollTo(0, 0)

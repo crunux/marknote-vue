@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { NoteInfo } from '@shared/types'
 import { formatDateFromMs } from '../utils/index';
 

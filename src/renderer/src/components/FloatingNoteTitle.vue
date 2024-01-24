@@ -2,7 +2,6 @@
 import { useStoreNotes } from '../store/index'
 
 const store = useStoreNotes()
-
 </script>
 <template>
 	<div flex justify-center>

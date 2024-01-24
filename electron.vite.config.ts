@@ -26,6 +26,7 @@ export default defineConfig({
 				'@assets': resolve('src/renderer/src/assets'),
 				'@store': resolve('src/renderer/src/store'),
 				'@components': resolve('src/renderer/src/components'),
+				'@layouts': resolve('src/renderer/src/layouts'),
 				'@composables': resolve('src/renderer/src/composables'),
 				'@types': resolve('src/renderer/src/types'),
 				'@shared': resolve('src/shared')

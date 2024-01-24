@@ -9,7 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     ActionButton: typeof import('./src/components/ActionButton.vue')['default']
     ActionButtonsrow: typeof import('./src/components/ActionButtonsrow.vue')['default']
-    AppLayout: (typeof import('./src/layouts/AppLayout.vue'))['default']
     DeleteNotebutton: typeof import('./src/components/DeleteNotebutton.vue')['default']
     DraggableTopbar: typeof import('./src/components/DraggableTopbar.vue')['default']
     FloatingNoteTitle: typeof import('./src/components/FloatingNoteTitle.vue')['default']
@@ -19,6 +18,6 @@ declare module 'vue' {
     NotePreview: typeof import('./src/components/NotePreview.vue')['default']
     NotePreviewList: typeof import('./src/components/NotePreviewList.vue')['default']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
-    Versions: typeof import('./src/components/Versions.vue')['default']
+    TestTsxComponent: typeof import('./src/components/TestTsxComponent.vue')['default']
   }
 }
