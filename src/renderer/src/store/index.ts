@@ -26,14 +26,19 @@ export const useStoreNotes = defineStore('notesStore', () => {
 		content.value = await window.context.readNote(note.value.title)
 	}
 
+	const saveNote = async () => {
+		if (!note.value) return
+		// save on disk
+		note.value.lastEditTime = new Date().getTime()
+		await window.context.writeNote(note.value.title, content.value)
+	}
+
 	const addEmptyNote = () => {
-		console.log('clickAdd')
 
 		const newNote: NoteInfo = {
 			title: `Note ${notesAtom.value.length + 1}`,
 			lastEditTime: new Date().getTime()
 		}
-
 		notesAtom.value = [newNote, ...notesAtom.value.filter((note) => note.title !== newNote.title)]
 		selectedNoteIndex.value = null
 	}
@@ -56,6 +61,7 @@ export const useStoreNotes = defineStore('notesStore', () => {
 
 		//setter
 		loadData,
+		saveNote,
 		selectNote,
 		addEmptyNote,
 		deleteNote

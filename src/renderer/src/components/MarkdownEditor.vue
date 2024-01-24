@@ -1,22 +1,20 @@
 <script setup lang="ts">
-import { ref, computed} from 'vue'
+import { ref, computed } from 'vue'
 import { MdEditor } from 'md-editor-v3'
 import type { ExposeParam } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import useMarkdownEditor from '../composables/useMarkdownEditor'
 
-//const markdown = ref('# Welcome')
 const html = ref('')
 const el = ref<ExposeParam>()
-const toggleCall = () => console.log('Hola ya esta guardado')
 
-const {content} = useMarkdownEditor()
+const { content, handlerSaveNote } = useMarkdownEditor()
 
-const htmlParse = (value) => {
-	html.value = value
-}
 const htmlPreview = computed(() => html.value)
 
+const htmlParse = (value: string) => {
+	html.value = value
+}
 </script>
 <template>
 	<div v-html="htmlPreview" text-white p4 m2></div>
@@ -29,7 +27,7 @@ const htmlPreview = computed(() => html.value)
 		:toolbars="[]"
 		:footers="[]"
 		:preview="false"
-		@onSave="toggleCall"
+		@onSave="handlerSaveNote"
 		:style="{ background: 'transparent', border: 'none' }"
 		autoDetectCode
 		outline-none
