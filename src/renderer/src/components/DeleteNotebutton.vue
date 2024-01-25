@@ -3,8 +3,8 @@ import { useStoreNotes } from '../store'
 
 const store = useStoreNotes()
 
-const handlerDeleteNote = () => {
-	store.deleteNote()
+const handlerDeleteNote = async () => {
+	await store.deleteNote()
 }
 </script>
 <template>

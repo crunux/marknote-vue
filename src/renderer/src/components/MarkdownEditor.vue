@@ -8,7 +8,7 @@ import useMarkdownEditor from '../composables/useMarkdownEditor'
 const html = ref('')
 const el = ref<ExposeParam>()
 
-const { content, handlerSaveNote } = useMarkdownEditor()
+const { content, handlerSavingNote, handlerAutoSaving, handlerBlur } = useMarkdownEditor()
 
 const htmlPreview = computed(() => html.value)
 
@@ -27,7 +27,9 @@ const htmlParse = (value: string) => {
 		:toolbars="[]"
 		:footers="[]"
 		:preview="false"
-		@onSave="handlerSaveNote"
+		@onSave="handlerSavingNote"
+		@onChange="handlerAutoSaving"
+		@onBlur="handlerBlur"
 		:style="{ background: 'transparent', border: 'none' }"
 		autoDetectCode
 		outline-none

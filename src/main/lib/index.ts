@@ -1,7 +1,9 @@
 import { homedir } from 'os'
 import { appDirectoryName, fileEncoding } from '../../shared/constants'
-import { ensureDir, readFile, readdir, stat, writeFile } from 'fs-extra'
-import { GetNotes, NoteInfo, ReadNote, WriteNote } from '../../shared/types/index'
+import { ensureDir, readFile, readdir, remove, stat, writeFile } from 'fs-extra'
+import { CreateNote, DeleteNote, GetNotes, NoteInfo, ReadNote, WriteNote } from '../../shared/types/index'
+import { dialog } from 'electron'
+import path from 'path'
 
 export const getRootDir = () => {
 	const rootDir = `${homedir()}/${appDirectoryName}`
@@ -37,4 +39,59 @@ export const writeNote: WriteNote = async (filename, content) => {
 	const rootDir = getRootDir()
 	console.info(`Writing note ${filename}`)
 	return writeFile(`${rootDir}/${filename}.md`, content, { encoding: fileEncoding })
+}
+
+export const createNote: CreateNote = async () => {
+	const rootDir = getRootDir()
+	await ensureDir(rootDir)
+	const { filePath, canceled } = await dialog.showSaveDialog({
+		title: 'New note',
+		defaultPath: `${rootDir}/Untitled.md`,
+		filters: [{ name: 'Markdown', extensions: ['md'] }],
+		buttonLabel: 'Create',
+		properties: ['createDirectory', 'showOverwriteConfirmation'],
+		showsTagField: false
+	})
+
+	if (canceled || !filePath) {
+		console.log('Note creation canceled')
+		return false
+	}
+
+	const { name: filename, dir: parentDir } = path.parse(filePath)
+
+	if (parentDir !== rootDir) {
+		await dialog.showMessageBox({
+			type: 'error',
+			title: 'Creation failed',
+			message: `All notes must be saved under ${rootDir}.
+			Avoid using other directories!`
+		})
+		console.log('Note creation canceled')
+		return false
+	}
+	console.info(`Creating note: ${filePath}`)
+	await writeFile(filePath, '')
+	return filename
+}
+
+export const deleteNote: DeleteNote = async (filename: string) => {
+	const rootDir = getRootDir()
+	const {response} = await dialog.showMessageBox({
+		type: 'warning',
+		title: 'Delete note',
+		message: `Are you sure you want to delete ${filename}?`,
+		buttons: ['Delete', 'Cancel'], // 0 is Delete, 1 is Cancel
+		defaultId: 1,
+		cancelId: 1,
+	})
+
+	if(response === 1) {
+		console.info('Note deletion canceled')
+		return false
+	}
+
+	console.info(`Deleting note: ${filename}`)
+	await remove(`${rootDir}/${filename}.md`)
+	return true
 }

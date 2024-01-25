@@ -3,8 +3,8 @@ import { useStoreNotes } from '../store'
 
 const store = useStoreNotes()
 
-const handlerAddNote = () => {
-	store.addEmptyNote()
+const handlerAddNote = async () => {
+	await store.addEmptyNote()
 }
 </script>
 <template>
@@ -12,4 +12,3 @@ const handlerAddNote = () => {
 		><div class="i-carbon-new-tab w-4 h-4 text-zinc-200"
 	/></ActionButton>
 </template>
-../store/index.pinia ../store

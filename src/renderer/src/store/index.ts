@@ -1,7 +1,6 @@
 import type { NoteInfo } from '@shared/types'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-//import { notesMock } from './mock'
 
 const loadNotes = async () => {
 	const notes = await window.context.getNotes()
@@ -13,7 +12,7 @@ export const useStoreNotes = defineStore('notesStore', () => {
 
 	const selectedNoteIndex = ref<number | null>(null)
 	const note = ref<NoteInfo | null>(null)
-	const content = ref<string>(`# Welcome`)
+	const content = ref<string>(`# Welcome to the Jungle`)
 
 	const loadData = async () => {
 		notesAtom.value = await loadNotes()
@@ -33,19 +32,30 @@ export const useStoreNotes = defineStore('notesStore', () => {
 		await window.context.writeNote(note.value.title, content.value)
 	}
 
-	const addEmptyNote = () => {
+	const addEmptyNote = async () => {
+		const title = await window.context.createNote()
+
+		if (!title) return
 
 		const newNote: NoteInfo = {
-			title: `Note ${notesAtom.value.length + 1}`,
+			title,
 			lastEditTime: new Date().getTime()
 		}
 		notesAtom.value = [newNote, ...notesAtom.value.filter((note) => note.title !== newNote.title)]
 		selectedNoteIndex.value = null
 	}
 
-	const deleteNote = () => {
+	const deleteNote = async () => {
 		if (!selectedNoteIndex.value && selectedNoteIndex.value !== 0) return
+
+		if (!note.value) return
+		const isDeleted = await window.context.deleteNote(note.value.title)
+
+		if (!isDeleted) return
+
 		notesAtom.value = notesAtom.value.filter((item) => item.title !== note.value?.title)
+		note.value = null
+		content.value = ''
 		selectedNoteIndex.value = null
 	}
 

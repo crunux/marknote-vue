@@ -1,20 +1,39 @@
 import { useStoreNotes } from '@renderer/store'
 import { storeToRefs } from 'pinia'
+import { throttle } from 'lodash'
 
 const useMarkdownEditor = () => {
 	const store = useStoreNotes()
 	const { content, selectedNoteIndex, note } = storeToRefs(store)
 
-	const handlerSaveNote = () => {
+	const handlerSavingNote = () => {
 		store.saveNote()
 		console.log('Hola ya esta guardado')
+	}
+
+	const handlerAutoSaving = throttle(
+		async () => {
+			store.saveNote()
+		},
+		10000,
+		{
+			leading: false,
+			trailing: true
+		}
+	)
+	const handlerBlur = () => {
+		handlerAutoSaving.cancel()
 	}
 
 	return {
 		content: content,
 		index: selectedNoteIndex,
 		...note.value,
-		handlerSaveNote
+
+		// functions
+		handlerSavingNote,
+		handlerAutoSaving,
+		handlerBlur
 	}
 }
 
