@@ -8,7 +8,6 @@ const useMarkdownEditor = () => {
 
 	const handlerSavingNote = () => {
 		store.saveNote()
-		console.log('Hola ya esta guardado')
 	}
 
 	const handlerAutoSaving = throttle(

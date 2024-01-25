@@ -3,8 +3,8 @@ import { useStoreNotes } from '../store'
 
 const useNotesList = () => {
 	const store = useStoreNotes()
-
 	const { noteComputed, selectedNoteIndex } = storeToRefs(store)
+
 	const handlerNoteSelect = async (index: number) => {
 		await store.selectNote(index)
 	}
