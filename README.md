@@ -48,12 +48,16 @@ $ pnpm build:linux
 
 <!-- linux install -->
 
+- linux install
+
 ```bash
 $ install dpkg
 $ sudo dpkg -i package_name.deb
 ```
 
 <!-- install archlinux -->
+
+- archlinux install
 
 ```bash
 $ paru -S debtag
