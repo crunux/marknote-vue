@@ -1,6 +1,6 @@
 # Markdown AppNote
 
-An Electron application with Vue + TypeScript + UnoCSS + Pinia + MdEditorv3
+An Electron application with Vue + TypeScript + UnoCSS + Pinia + MdEditor-v3
 
 [Electron](https://github.com/electron/electron) +
 [Vue](https://github.com/vuejs/vue) +
@@ -8,7 +8,12 @@ An Electron application with Vue + TypeScript + UnoCSS + Pinia + MdEditorv3
 [Pinia](https://github.com/vuejs/pinia) +
 [md-editor-v3](https://github.com/imzbf/md-editor-v3)
 
-Inspired By [Gionathas/Mark Note React](https://github.com/gionathas/NoteMark)
+Inspired By [Gionathas](https://github.com/gionathas/NoteMark)
+
+## Preview
+
+Desktop App
+![PreviewNoteMarkApp](./resources/preview.png)
 
 ## Project Setup
 
@@ -39,4 +44,20 @@ $ pnpm build:mac
 
 # For Linux
 $ pnpm build:linux
+```
+
+<!-- linux install -->
+
+```bash
+$ install dpkg
+$ sudo dpkg -i package_name.deb
+```
+
+<!-- install archlinux -->
+
+```bash
+$ paru -S debtag
+$ sudo debtap -u
+$ debtag package_name.deb
+$ sudo pacman -U packagename.pkg.tar.zst or packagename.pkg
 ```
