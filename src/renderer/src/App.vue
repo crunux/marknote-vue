@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, onMounted} from 'vue'
 import { useStoreNotes } from '../src/store'
 import { HTMLDivElementCustom } from '@shared/types'
 import AppLayout from './layouts/AppLayout.vue'
